@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -31,8 +32,7 @@ import frc.robot.subsystems.*;
 public class RobotContainer {
   /* Controllers */
    private final Joystick driver = new Joystick(0);
-  private final Joystick driver_1 = new Joystick(1);
-  private final Joystick driver_2 = new Joystick(2);
+  private final Joystick operator = new Joystick(1);
   
 
   /* Drive Controls */
@@ -42,9 +42,10 @@ public class RobotContainer {
 
  private final int translationAxis = 1;
  private final int strafeAxis = 0;
- private final int rotationAxis =  0; 
- private final int armAxis = XboxController.Axis.kRightY.value; 
- private final int slideAxis = XboxController.Axis.kLeftY.value;
+ private final int rotationAxis = 4; 
+ private final int armAxis = 1;
+ private final int armUpAxis = 3; 
+ private final int armDownAxis = 2;
 
  
  
@@ -53,19 +54,19 @@ public class RobotContainer {
   // private final JoystickButton zeroGyro =
   // new JoystickButton(driver, XboxController.Button.kY.value);
       private final JoystickButton robotCentric =
-      new JoystickButton(driver_2, 6);    
+      new JoystickButton(driver, 6);    
 
       private final JoystickButton zeroGyro =
-      new JoystickButton(driver_2, 1);
+      new JoystickButton(driver, 5);
 
       private final JoystickButton incSpeed =
-      new JoystickButton(driver_2, 5);
+      new JoystickButton(driver, 5);
 
       private final JoystickButton decSpeed =
-      new JoystickButton(driver_2, 3);
+      new JoystickButton(driver, 3);
 
       private final JoystickButton xLock = 
-      new JoystickButton(driver_2, 4);
+      new JoystickButton(driver, 3);
       private final JoystickButton resetAbsolute2 = 
       new JoystickButton(driver, 8);
 
@@ -78,11 +79,11 @@ public class RobotContainer {
     
 
       private final JoystickButton armReset = 
-      new JoystickButton(driver,7);
-      private final JoystickButton armDown = 
-      new JoystickButton(driver,1);
-      private final JoystickButton armUp = 
-     new JoystickButton(driver, 4); 
+      new JoystickButton(operator,7);
+      private final Trigger armDown = 
+      new Trigger(() -> operator.getRawAxis(armDownAxis) > 0.3);
+      private final Trigger armUp = 
+     new Trigger (() -> operator.getRawAxis(armUpAxis) > 0.3); 
 
     //  private final JoystickButton armDown = 
     //  new JoystickButton(driver, XboxController.Button.kA.value); 
@@ -92,30 +93,26 @@ public class RobotContainer {
 
 
       private final JoystickButton resetAbsolute =
-      new JoystickButton(driver_1,1);
+      new JoystickButton(driver,1);
 
       private final JoystickButton intake =
-      new JoystickButton(driver,3);
+      new JoystickButton(operator,5);
 
       private final JoystickButton outake =
-      new JoystickButton(driver,6);
+      new JoystickButton(operator,4);
 
       private final JoystickButton hold = 
-      new JoystickButton(driver,5);
+      new JoystickButton(operator,3);
 
       private final JoystickButton drop =
-      new JoystickButton(driver,2);
+      new JoystickButton(operator,6);
 
-      private final JoystickButton resetSlider =
-      new JoystickButton(driver,7);
       
 
 
   /* Subsystems */
   private final Swerve s_Swerve = new Swerve();
- // private final VictorArm s_VictorArm = new VictorArm();
   private final Gripper s_Gripper = new Gripper();
-   //private final Slider s_Slider = new Slider();
    private final Arm s_Arm = new Arm();
    //private final Vision s_Vision = new Vision();
 
@@ -137,21 +134,12 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver_1.getRawAxis(translationAxis) * Swerve.speedRateSwerve,
-            () -> -driver_1.getRawAxis(strafeAxis) * Swerve.speedRateSwerve,
-            () -> driver_2.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
+            () -> -driver.getRawAxis(translationAxis) * Swerve.speedRateSwerve,
+            () -> -driver.getRawAxis(strafeAxis) * Swerve.speedRateSwerve,
+            () -> driver.getRawAxis(rotationAxis) * Swerve.speedRateSwerve,
             () -> robotCentric.getAsBoolean())); 
 
-  /*       s_VictorArm.setDefaultCommand(
-          new VictorArmCommand(
-            s_VictorArm,
-           () -> (- driver.getRawAxis(armAxis) * 0.6) + s_VictorArm.kG)) ; 
 
-         s_Slider.setDefaultCommand(
-          new SlideCommand(
-            s_Slider,
-            () -> ((driver.getRawAxis(slideAxis)) * 1.0)+s_Arm.calculatedkG)) ; 
-*/
 
          s_Gripper.setDefaultCommand(
           s_Gripper.run(() -> s_Gripper.stop()));

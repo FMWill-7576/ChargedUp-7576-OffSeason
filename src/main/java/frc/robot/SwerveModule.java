@@ -73,9 +73,9 @@ public class SwerveModule {
        if (Math.abs(desiredState.speedMetersPerSecond) < 0.005) { 
       driveMotor.set(0);
       angleMotor.set(0);
-      if (desiredState.angle == lastAngle) {   
+     /*  if (desiredState.angle == lastAngle) {   
       resetToAbsolute();
-       }
+       } */
       return; 
   } 
     // Custom optimize command, since default WPILib optimize assumes continuous controller which

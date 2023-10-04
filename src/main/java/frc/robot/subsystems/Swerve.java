@@ -122,7 +122,7 @@ public class Swerve extends SubsystemBase {
  }
 
  public void invertGyro(){
-  gyro.setAngleAdjustment(0.0);
+  gyro.setAngleAdjustment(180.0);
  }
 
   public void zeroGyro() {
@@ -182,10 +182,10 @@ public void resetModulesToAbsolute(){
 
   @Override
   public void periodic() {
-    for(SwerveModule mod : mSwerveMods){
+   /*  for(SwerveModule mod : mSwerveMods){
       if  (Math.abs(mod.integratedAngleEncoder.getPosition() - mod.getCanCoder().getDegrees()) > 10.0)
       mod.resetToAbsolute();
-  } 
+  } */
    
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());

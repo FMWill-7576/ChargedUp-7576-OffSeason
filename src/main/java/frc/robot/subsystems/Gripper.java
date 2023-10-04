@@ -44,8 +44,8 @@ public class Gripper extends SubsystemBase {
   }
 
   public void   outake(){ 
-    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.85);
-    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.85);
+    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.88);
+    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.88);
   }
 
   public void   drop(){ 
