@@ -142,7 +142,7 @@ public class Swerve extends SubsystemBase {
   }
 
  
-public static double speedRateSwerve = 1.0; 
+public static double speedRateSwerve = 0.5; 
 
 
  public void incSpeed() {
@@ -189,7 +189,7 @@ public void resetModulesToAbsolute(){
    
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",(-gyro.getAngle()));
+    SmartDashboard.putNumber("Robot Heading",(gyro.getYaw()));
     //SmartDashboard.putString("Robot Location", getPose().getRotation().toString());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
