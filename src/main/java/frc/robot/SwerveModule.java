@@ -48,7 +48,7 @@ public class SwerveModule {
     /* Angle Encoder Config */
     angleEncoder = new CANCoder(moduleConstants.cancoderID);
     configAngleEncoder();
-    configAngleEncoder();
+    //configAngleEncoder();
 
     /* Angle Motor Config */
     angleMotor = new CANSparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
@@ -149,7 +149,7 @@ public class SwerveModule {
           feedforward.calculate(desiredState.speedMetersPerSecond));
     }
   }
-
+ 
   private void setAngle(SwerveModuleState desiredState) {
     // Prevent rotating module if speed is less then 1%. Prevents jittering.
     Rotation2d angle =
