@@ -33,8 +33,8 @@ public class Arm extends SubsystemBase {
   //private final TrapezoidProfile.Constraints m_constraints;
 
   public Arm() {
-      armMotor  = new CANSparkMax(27, MotorType.kBrushless);
-      armMotor2  = new CANSparkMax(26, MotorType.kBrushless);
+      armMotor  = new CANSparkMax(9, MotorType.kBrushless);
+      armMotor2  = new CANSparkMax(10, MotorType.kBrushless);
       //m_constraints = new TrapezoidProfile.Constraints(4.8, 3.0);
       armController = armMotor.getPIDController();
       armController2 = armMotor2.getPIDController();
@@ -62,11 +62,11 @@ public class Arm extends SubsystemBase {
         armMotor2.setInverted(true);
         armMotor2.setIdleMode(Constants.ArmConstants.armNeutralMode);
          
-        integratedArmEncoder.setPositionConversionFactor(180.0/24.33); 
-        integratedArmEncoder.setPosition(-45.0);
+        integratedArmEncoder.setPositionConversionFactor(9.29); 
+        integratedArmEncoder.setPosition(-68.0);
        
-        integratedArmEncoder2.setPositionConversionFactor(180.0/24.33); 
-        integratedArmEncoder2.setPosition(-45.0); 
+        integratedArmEncoder2.setPositionConversionFactor(9.56); 
+        integratedArmEncoder2.setPosition(-68.0); 
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
         armController.setD(Constants.ArmConstants.armKD);
@@ -102,7 +102,7 @@ public class Arm extends SubsystemBase {
 
      public void armUp(){
      // armSet(Rotation2d.fromDegrees(150.0));
-     armDrive(0.265);
+     armDrive(0.205);
      }
 
      public void armCone(){
@@ -122,7 +122,7 @@ public class Arm extends SubsystemBase {
 
      public void armDown(){
       //armSet(Rotation2d.fromDegrees(200.0));
-      armDrive(-0.265);
+      armDrive(-0.205);
      }
 
 

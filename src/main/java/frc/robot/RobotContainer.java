@@ -147,7 +147,7 @@ public class RobotContainer {
           s_Arm.setDefaultCommand( 
           new ArmCommand(
             s_Arm,
-           () -> (-driver.getRawAxis(armAxis) * 1)+s_Arm.calculatedkG )  
+           () -> (-operator.getRawAxis(armAxis) * 1))  
           //s_Arm.run(() -> s_Arm.armDrive(1.0))
 
 
