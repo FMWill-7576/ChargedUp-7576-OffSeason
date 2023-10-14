@@ -23,7 +23,7 @@ public final class Constants {
 
     public static final double armConversionPositionFactor = 360.0/71.0/7.0/2.4923 ;
 
-    public static final double armKP = 0.15 ;
+    public static final double armKP = 0.01 ;
     public static final double armKI = 0.00 ;
     public static final double armKD = 0.00 ;
     public static final double armKFF = 0.0 ;
@@ -40,7 +40,7 @@ public final class Constants {
   }
   
   public static final class Swerve {
-    public static final double stickDeadband = 0.00729;
+    public static final double stickDeadband = 0.09;
 
     public static final boolean invertGyro = true; // Always ensure Gyro is CCW+ CW-
 

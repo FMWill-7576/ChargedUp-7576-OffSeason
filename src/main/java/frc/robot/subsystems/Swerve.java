@@ -150,7 +150,7 @@ public class Swerve extends SubsystemBase {
   }
 
  
-public static double speedRateSwerve = 0.5; 
+public static double speedRateSwerve = 1.0; 
 
 
  public void incSpeed() {
