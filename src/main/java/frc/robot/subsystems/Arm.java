@@ -38,6 +38,7 @@ public class Arm extends SubsystemBase {
   private TrapezoidProfile.State m_goal;
   private TrapezoidProfile.State m_setpoint;
   private static double kDt;
+  private ArmFeedforward feedforward;
 
   public Arm() {
       armMotor  = new CANSparkMax(9, MotorType.kBrushless);
@@ -51,7 +52,9 @@ public class Arm extends SubsystemBase {
      profile = new TrapezoidProfile(m_constraints,m_end,m_start);
       m_goal = new TrapezoidProfile.State();
       m_setpoint = new TrapezoidProfile.State();
-       kDt = 0.02;
+      kDt = 0.02;
+      feedforward = new ArmFeedforward(kS, kG, kV);
+    
   
      integratedArmEncoder = armMotor.getEncoder();
      integratedArmEncoder2 = armMotor2.getEncoder();
@@ -83,9 +86,11 @@ public class Arm extends SubsystemBase {
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
         armController.setD(Constants.ArmConstants.armKD);
+        armController.setOutputRange(-0.25, 0.25);
         armController2.setP(Constants.ArmConstants.armKP);
         armController2.setI(Constants.ArmConstants.armKI);
         armController2.setD(Constants.ArmConstants.armKD);
+        armController2.setOutputRange(-0.25, 0.25);
         //armController.setFF(Constants.ArmConstants.armKFF);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
@@ -97,21 +102,18 @@ public class Arm extends SubsystemBase {
     }
 
       public void armSet(Rotation2d angle) {
-        m_goal = new TrapezoidProfile.State(angle.getDegrees(), 0);
-
-
         armController.setReference(
-        m_setpoint.position,
-        CANSparkMax.ControlType.kPosition,
-        0,
-        0.3,
-        ArbFFUnits.kVoltage);
-
+         angle.getDegrees(),
+         CANSparkMax.ControlType.kPosition,
+         0,
+         feedforward.calculate(angle.getRadians(),0),
+         ArbFFUnits.kVoltage);
+         
         armController2.setReference(
-          m_setpoint.position,
+          angle.getDegrees(),
           ControlType.kPosition,
           0,
-          0.3,
+          feedforward.calculate(angle.getRadians(),0),
           ArbFFUnits.kVoltage);
           
       
@@ -120,20 +122,20 @@ public class Arm extends SubsystemBase {
 
      public void armUp(){
      // armSet(Rotation2d.fromDegrees(150.0));
-     armDrive(0.205);
+      armDrive(0.205);
      }
 
      public void armCone(){
        armSet(Rotation2d.fromDegrees(30.0));
       }
 
-       public void armCube(){
-        armSet(Rotation2d.fromDegrees(140.0));}
+     public void armCube(){
+      armSet(Rotation2d.fromDegrees(140.0));}
 
      public void armDrive(double armPercentage){
-  armMotor.set(armPercentage);
-  armMotor2.set(armPercentage);
-      }    
+      armMotor.set(armPercentage);
+      armMotor2.set(armPercentage);
+    }    
 
      public void armHome(){
       armSet(Rotation2d.fromDegrees(-68.0));
@@ -161,8 +163,9 @@ public class Arm extends SubsystemBase {
      // calculatedkG = 0.06 ; }
       // This method will be called once per scheduler run
       SmartDashboard.putNumber("arm encoder" , integratedArmEncoder.getPosition());
-      m_setpoint = profile.calculate(kDt);
-      var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
+      SmartDashboard.putNumber("arm encoder2" , integratedArmEncoder2.getPosition());
+    //  m_setpoint = profile.calculate(kDt);
+     // var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
 
       //SmartDashboard.putNumber("arm distance" , integratedArmEncoder.getDistance());
     }
