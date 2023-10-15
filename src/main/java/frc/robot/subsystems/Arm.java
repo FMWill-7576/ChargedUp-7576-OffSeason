@@ -126,7 +126,7 @@ public class Arm extends SubsystemBase {
      }
 
      public void armCone(){
-       armSet(Rotation2d.fromDegrees(30.0));
+       armSet(Rotation2d.fromDegrees(57.0));
       }
 
      public void armCube(){

@@ -71,11 +71,6 @@ public class RobotContainer {
       new JoystickButton(driver, 8);
  
 
-     // private final JoystickButton armHome = 
-     // new JoystickButton(driver,6);
-
-    
-
       private final JoystickButton armReset = 
       new JoystickButton(operator,7);
       private final Trigger armDown = 
@@ -84,6 +79,8 @@ public class RobotContainer {
      new Trigger (() -> operator.getRawAxis(armUpAxis) > 0.3); 
      private final JoystickButton armCone = 
      new JoystickButton(operator,2);
+     private final JoystickButton armHome = 
+      new JoystickButton(operator,1);
 
     //  private final JoystickButton armDown = 
     //  new JoystickButton(driver, XboxController.Button.kA.value); 
@@ -134,8 +131,8 @@ public class RobotContainer {
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> Math.pow(-driver.getRawAxis(translationAxis) , 1),
-            () -> Math.pow(-driver.getRawAxis(strafeAxis)  ,1),
+            () -> Math.pow(-driver.getRawAxis(translationAxis) * 0.4, 1),
+            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 0.4 ,1),
             () -> Math.pow(driver.getRawAxis(rotationAxis) * 0.45 ,1),
             () -> robotCentric.getAsBoolean())); 
 
@@ -188,9 +185,9 @@ public class RobotContainer {
    // armDown.whileTrue(s_Slider.run(() -> s_Slider.armDown()));
     armUp.whileTrue(s_Arm.run(() -> s_Arm.armUp()));
     armDown.whileTrue(s_Arm.run(() -> s_Arm.armDown()));
-   // armHome.whileTrue(s_Arm.run(() -> s_Arm.armHome()));
+    armHome.toggleOnTrue(s_Arm.run(() -> s_Arm.armHome()));
     armReset.whileTrue(s_Arm.runOnce(() -> s_Arm.armReset()));
-    armCone.whileTrue(s_Arm.run(() -> s_Arm.armCone()));
+    armCone.toggleOnTrue(s_Arm.run(() -> s_Arm.armCone()));
     intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
     outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
     drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));

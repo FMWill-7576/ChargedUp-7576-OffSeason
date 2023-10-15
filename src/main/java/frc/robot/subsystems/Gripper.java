@@ -38,14 +38,24 @@ public class Gripper extends SubsystemBase {
     rightGrip.set(VictorSPXControlMode.PercentOutput, 0.0);
   }
   public void   intake(){
-    leftGrip.set(VictorSPXControlMode.PercentOutput, -0.35
+    leftGrip.set(
+      VictorSPXControlMode.PercentOutput,
+     -0.35
     );
-   rightGrip.set(VictorSPXControlMode.PercentOutput, -0.35);
+   rightGrip.set(
+    VictorSPXControlMode.PercentOutput, 
+    -0.35
+    );
   }
 
   public void   outake(){ 
-    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.88);
-    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.88);
+    leftGrip.set(
+      VictorSPXControlMode.PercentOutput, 
+      1.0
+      );
+    rightGrip.set(
+      VictorSPXControlMode.PercentOutput, 
+      1.0);
   }
 
   public void   drop(){ 
@@ -55,13 +65,21 @@ public class Gripper extends SubsystemBase {
 
 
   public void   auto(){ 
-    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.35);
-    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.35);
+    leftGrip.set(
+      VictorSPXControlMode.PercentOutput,
+     0.4);
+    rightGrip.set(
+      VictorSPXControlMode.PercentOutput,
+     0.35);
   }
   public void   hold(){
-    leftGrip.set(VictorSPXControlMode.PercentOutput, -0.20
+    leftGrip.set(
+      VictorSPXControlMode.PercentOutput,
+    -0.2
     );
-   rightGrip.set(VictorSPXControlMode.PercentOutput, -0.20);
+   rightGrip.set(
+    VictorSPXControlMode.PercentOutput, -0.26
+    );
   }
 
   public void gripConfig(){

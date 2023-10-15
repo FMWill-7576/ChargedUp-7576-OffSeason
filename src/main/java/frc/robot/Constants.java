@@ -25,7 +25,7 @@ public final class Constants {
 
     public static final double armKP = 0.01 ;
     public static final double armKI = 0.00 ;
-    public static final double armKD = 0.00 ;
+    public static final double armKD = 0.09 ;
     public static final double armKFF = 0.0 ;
 
     public static final  IdleMode armNeutralMode = IdleMode.kBrake ;
