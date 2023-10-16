@@ -31,28 +31,28 @@ public class Arm extends SubsystemBase {
   private final SparkMaxPIDController armController2;
   private RelativeEncoder integratedArmEncoder;
   private RelativeEncoder integratedArmEncoder2;
-  private final TrapezoidProfile.Constraints m_constraints;
+  /* private final TrapezoidProfile.Constraints m_constraints;
   private  TrapezoidProfile.State  m_start;
   private TrapezoidProfile.State  m_end;
   private TrapezoidProfile profile;
   private TrapezoidProfile.State m_goal;
   private TrapezoidProfile.State m_setpoint;
-  private static double kDt;
+  private static double kDt; */
   private ArmFeedforward feedforward;
 
   public Arm() {
       armMotor  = new CANSparkMax(9, MotorType.kBrushless);
-      armMotor2  = new CANSparkMax(10, MotorType.kBrushless);
-      m_constraints = new TrapezoidProfile.Constraints(2, 0.3);
+      armMotor2  = new CANSparkMax(10, MotorType.kBrushless); 
       armController = armMotor.getPIDController();
       armController2 = armMotor2.getPIDController();
       armFeedforward = new ArmFeedforward(kS, kG, kV);
-     m_start = new TrapezoidProfile.State(-68, 0);
+     /* m_start = new TrapezoidProfile.State(-68, 0);
      m_end = new TrapezoidProfile.State(30, 0);
      profile = new TrapezoidProfile(m_constraints,m_end,m_start);
       m_goal = new TrapezoidProfile.State();
+      m_constraints = new TrapezoidProfile.Constraints(2, 0.3);
       m_setpoint = new TrapezoidProfile.State();
-      kDt = 0.02;
+      kDt = 0.02; */
       feedforward = new ArmFeedforward(kS, kG, kV);
     
   
@@ -75,12 +75,9 @@ public class Arm extends SubsystemBase {
         armMotor.setInverted(true);
         armMotor.setIdleMode(Constants.ArmConstants.armNeutralMode);
         armMotor2.setInverted(true);
-        armMotor2.setIdleMode(Constants.ArmConstants.armNeutralMode);
-        //armMotor2.follow(armMotor);
-         
+        armMotor2.setIdleMode(Constants.ArmConstants.armNeutralMode); 
         integratedArmEncoder.setPositionConversionFactor(9.29); 
         integratedArmEncoder.setPosition(-68.0);
-       
         integratedArmEncoder2.setPositionConversionFactor(9.29); 
         integratedArmEncoder2.setPosition(-68.0); 
         armController.setP(Constants.ArmConstants.armKP);
@@ -91,13 +88,10 @@ public class Arm extends SubsystemBase {
         armController2.setI(Constants.ArmConstants.armKI);
         armController2.setD(Constants.ArmConstants.armKD);
         armController2.setOutputRange(-0.25, 0.25);
-        //armController.setFF(Constants.ArmConstants.armKFF);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
         //integratedArmEncoder.setReverseDirection(false); // bu
-        //integratedArmEncoder.setDistancePerPulse(Constants.ArmConstants.armConversionPositionFactor); //bu
         armMotor.burnFlash();
-       //armMotor2.follow(armMotor);
         armMotor2.burnFlash();
     }
 
@@ -138,7 +132,7 @@ public class Arm extends SubsystemBase {
     }    
 
      public void armHome(){
-      armSet(Rotation2d.fromDegrees(-68.0));
+      armSet(Rotation2d.fromDegrees(-55.0));
      }
 
      public void armDown(){
@@ -161,11 +155,15 @@ public class Arm extends SubsystemBase {
      // }
      // else {
      // calculatedkG = 0.06 ; }
+     //  m_setpoint = profile.calculate(kDt);
+     // var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
+
       // This method will be called once per scheduler run
       SmartDashboard.putNumber("arm encoder" , integratedArmEncoder.getPosition());
       SmartDashboard.putNumber("arm encoder2" , integratedArmEncoder2.getPosition());
-    //  m_setpoint = profile.calculate(kDt);
-     // var profile = new TrapezoidProfile(m_constraints, m_goal, m_setpoint);
+      SmartDashboard.putNumber("setpoint",57.0);
+      
+
 
       //SmartDashboard.putNumber("arm distance" , integratedArmEncoder.getDistance());
     }
