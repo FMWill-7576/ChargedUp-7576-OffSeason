@@ -218,7 +218,7 @@ public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFir
    
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",(gyro.getYaw()));
+    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(-gyro.getAngle(), 360));
     //SmartDashboard.putString("Robot Location", getPose().getRotation().toString());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
