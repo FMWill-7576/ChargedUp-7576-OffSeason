@@ -124,22 +124,6 @@ public class RobotContainer {
    private final Arm s_Arm = new Arm();
    //private final Vision s_Vision = new Vision();
 
-   
-   // private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
-    private final Command ScoreTaxiAndBalance = new ScoreTaxiAndBalance(s_Swerve, s_Gripper, s_Arm);
-   // private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
-    private final Command doNothing = new doNothing(s_Swerve);
-    private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper);
-    private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_Arm);
-    private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_Arm);
-
-    // A chooser for autonomous commands
-     SendableChooser<Command> m_chooser = new SendableChooser<>();
-
-     // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
-// for every path in the group
-List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
-
 // This is just an example event map. It would be better to have a constant, global event map
 // in your code that will be used by all path following commands.
 HashMap<String, Command> eventMap = new HashMap<>();
@@ -155,8 +139,23 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     true, // Should the path be automatically mirrored depending on alliance color. Optional, defaults to true
     s_Swerve // The drive subsystem. Used to properly set the requirements of path following commands
 );
+// This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
+// for every path in the group
+List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
 
-Command fullAuto = autoBuilder.fullAuto(pathGroup);
+
+   
+   // private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
+    private final Command ScoreTaxiAndBalance = new ScoreTaxiAndBalance(s_Swerve, s_Gripper, s_Arm);
+   // private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
+    private final Command doNothing = new doNothing(s_Swerve);
+    private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper);
+    private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_Arm);
+    private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_Arm);
+    Command fullAuto = autoBuilder.fullAuto(pathGroup);
+    
+    // A chooser for autonomous commands
+     SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
