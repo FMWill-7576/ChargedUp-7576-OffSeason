@@ -38,7 +38,6 @@ public class Swerve extends SubsystemBase {
       Thread.sleep(1000); // waiting for 1 second for the navx to complete the calibration before resetting the yaw
       gyro.reset();
       invertGyro();
-      resetModulesToAbsolute();
   } catch (InterruptedException ex) {
     Thread.currentThread().interrupt();
   } 
@@ -55,6 +54,7 @@ public class Swerve extends SubsystemBase {
  // Timer.delay(1.0);
 
    swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw(), getPositions());
+   resetModulesToAbsolute();
   
     
     field = new Field2d();
