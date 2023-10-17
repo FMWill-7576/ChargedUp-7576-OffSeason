@@ -90,8 +90,7 @@ public class RobotContainer {
      private final JoystickButton armHome = 
       new JoystickButton(operator,1);
 
-    //  private final JoystickButton armDown = 
-    //  new JoystickButton(driver, XboxController.Button.kA.value); 
+    
 
      // private final JoystickButton pistonTest = 
      // new JoystickButton(driver, 6);
@@ -111,6 +110,9 @@ public class RobotContainer {
 
       private final JoystickButton drop =
       new JoystickButton(operator,6);
+
+      private final JoystickButton armGrip = 
+      new JoystickButton(operator, 8); 
 
       
 
@@ -137,9 +139,9 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     s_Swerve // The drive subsystem. Used to properly set the requirements of path following commands
 );
 // This will load the file "FullAuto.path" and generate it with a max velocity of 4 m/s and a max acceleration of 3 m/s^2
-// for every path in the group
-List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
-
+/*  for every path in the group
+ List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", new PathConstraints(4, 3));
+*/
 
    
    // private final Command exampleAuto = new exampleAuto(s_Swerve, s_Gripper);
@@ -149,7 +151,7 @@ List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", ne
     private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper);
     private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_Arm);
     private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_Arm);
-    Command fullAuto = autoBuilder.fullAuto(pathGroup);
+    // Command fullAuto = autoBuilder.fullAuto(pathGroup);
     
     // A chooser for autonomous commands
      SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -162,8 +164,8 @@ List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", ne
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> Math.pow(-driver.getRawAxis(translationAxis) * 0.4, 1),
-            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 0.4 ,1),
+            () -> Math.pow(-driver.getRawAxis(translationAxis) * 1, 1),
+            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 1 ,1),
             () -> Math.pow(driver.getRawAxis(rotationAxis) * 0.45 ,1),
             () -> robotCentric.getAsBoolean())); 
 
@@ -175,7 +177,7 @@ List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", ne
           s_Arm.setDefaultCommand( 
           new ArmCommand(
             s_Arm,
-           () -> (-operator.getRawAxis(armAxis) * 1))  
+           () -> (-operator.getRawAxis(armAxis) * 0))  
           //s_Arm.run(() -> s_Arm.armDrive(1.0))
 
 
@@ -219,6 +221,7 @@ List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("FullAuto", ne
     armHome.toggleOnTrue(s_Arm.run(() -> s_Arm.armHome()));
     armReset.whileTrue(s_Arm.runOnce(() -> s_Arm.armReset()));
     armCone.toggleOnTrue(s_Arm.run(() -> s_Arm.armCone()));
+    armGrip.toggleOnTrue(s_Arm.run(() -> s_Arm.armGrip()));
     intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
     outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
     drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));

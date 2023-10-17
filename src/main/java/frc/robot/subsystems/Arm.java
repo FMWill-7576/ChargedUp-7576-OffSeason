@@ -20,7 +20,7 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
   private static double kS = 0.3;
-  private static double kG = 0.65;
+  private static double kG = 0.75;
   private static double kV = 0.13;
   public double calculatedkG;
   private ArmFeedforward armFeedforward;
@@ -79,15 +79,17 @@ public class Arm extends SubsystemBase {
         integratedArmEncoder.setPositionConversionFactor(9.29); 
         integratedArmEncoder.setPosition(-68.0);
         integratedArmEncoder2.setPositionConversionFactor(9.29); 
+        integratedArmEncoder.setVelocityConversionFactor(9.29); 
         integratedArmEncoder2.setPosition(-68.0); 
+        integratedArmEncoder2.setVelocityConversionFactor(9.29); 
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
         armController.setD(Constants.ArmConstants.armKD);
-        armController.setOutputRange(-0.25, 0.25);
+        armController.setOutputRange(-0.32, 0.32);
         armController2.setP(Constants.ArmConstants.armKP);
         armController2.setI(Constants.ArmConstants.armKI);
         armController2.setD(Constants.ArmConstants.armKD);
-        armController2.setOutputRange(-0.25, 0.25);
+        armController2.setOutputRange(-0.32, 0.32);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
         //integratedArmEncoder.setReverseDirection(false); // bu
@@ -120,11 +122,11 @@ public class Arm extends SubsystemBase {
      }
 
      public void armCone(){
-       armSet(Rotation2d.fromDegrees(57.0));
+       armSet(Rotation2d.fromDegrees(57.3));
       }
 
-     public void armCube(){
-      armSet(Rotation2d.fromDegrees(140.0));}
+     public void armGrip(){
+      armSet(Rotation2d.fromDegrees(298.0));}
 
      public void armDrive(double armPercentage){
       armMotor.set(armPercentage);
@@ -162,6 +164,7 @@ public class Arm extends SubsystemBase {
       SmartDashboard.putNumber("arm encoder" , integratedArmEncoder.getPosition());
       SmartDashboard.putNumber("arm encoder2" , integratedArmEncoder2.getPosition());
       SmartDashboard.putNumber("setpoint",57.0);
+      SmartDashboard.putNumber("arm speed",integratedArmEncoder.getVelocity());
       
 
 
