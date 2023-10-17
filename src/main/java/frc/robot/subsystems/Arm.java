@@ -85,11 +85,11 @@ public class Arm extends SubsystemBase {
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
         armController.setD(Constants.ArmConstants.armKD);
-        armController.setOutputRange(-0.32, 0.32);
+        armController.setOutputRange(-0.33, 0.33);
         armController2.setP(Constants.ArmConstants.armKP);
         armController2.setI(Constants.ArmConstants.armKI);
         armController2.setD(Constants.ArmConstants.armKD);
-        armController2.setOutputRange(-0.32, 0.32);
+        armController2.setOutputRange(-0.33, 0.33);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
         //integratedArmEncoder.setReverseDirection(false); // bu
@@ -118,7 +118,7 @@ public class Arm extends SubsystemBase {
 
      public void armUp(){
      // armSet(Rotation2d.fromDegrees(150.0));
-      armDrive(0.205);
+      armDrive(0.235);
      }
 
      public void armCone(){
@@ -139,7 +139,7 @@ public class Arm extends SubsystemBase {
 
      public void armDown(){
       //armSet(Rotation2d.fromDegrees(200.0));
-      armDrive(-0.205);
+      armDrive(-0.235);
      }
 
 

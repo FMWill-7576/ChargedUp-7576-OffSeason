@@ -221,7 +221,7 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     armHome.toggleOnTrue(s_Arm.run(() -> s_Arm.armHome()));
     armReset.whileTrue(s_Arm.runOnce(() -> s_Arm.armReset()));
     armCone.toggleOnTrue(s_Arm.run(() -> s_Arm.armCone()));
-    armGrip.toggleOnTrue(s_Arm.run(() -> s_Arm.armGrip()));
+    armGrip.toggleOnTrue(s_Arm.run(() -> s_Arm.armGrip()).alongWith(s_Gripper.run(() -> s_Gripper.hold())));
     intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
     outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
     drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));

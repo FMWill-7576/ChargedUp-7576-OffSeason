@@ -23,7 +23,7 @@ public final class Constants {
 
     public static final double armConversionPositionFactor = 360.0/71.0/7.0/2.4923 ;
 
-    public static final double armKP = 0.012 ;
+    public static final double armKP = 0.014 ;
     public static final double armKI = 0.00 ;
     public static final double armKD = 0.095;
     public static final double armKFF = 0.0 ;
