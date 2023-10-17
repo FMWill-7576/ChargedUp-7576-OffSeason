@@ -49,7 +49,7 @@ public final class Constants {
     // Distance between right and left wheels
     public static final double wheelBase = 0.585;
     // Distance between front and back wheelsxx
-    public static final double wheelDiameter = Units.inchesToMeters(3.91);
+    public static final double wheelDiameter = Units.inchesToMeters(3.95);
     public static final double wheelCircumference = wheelDiameter * Math.PI;
 
     public static final double openLoopRamp = 0.25;
