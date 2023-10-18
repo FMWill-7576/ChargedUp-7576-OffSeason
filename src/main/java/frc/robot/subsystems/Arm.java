@@ -39,6 +39,7 @@ public class Arm extends SubsystemBase {
   private TrapezoidProfile.State m_setpoint;
   private static double kDt; */
   private ArmFeedforward feedforward;
+  private static double setpoint;
 
   public Arm() {
       armMotor  = new CANSparkMax(9, MotorType.kBrushless);
@@ -112,7 +113,7 @@ public class Arm extends SubsystemBase {
           feedforward.calculate(angle.getRadians(),0),
           ArbFFUnits.kVoltage);
           
-      
+       setpoint=angle.getDegrees();
       }
      
 
@@ -176,7 +177,7 @@ public class Arm extends SubsystemBase {
       // This method will be called once per scheduler run
       SmartDashboard.putNumber("arm encoder" , integratedArmEncoder.getPosition());
       SmartDashboard.putNumber("arm encoder2" , integratedArmEncoder2.getPosition());
-      SmartDashboard.putNumber("setpoint",57.0);
+      SmartDashboard.putNumber("setpoint",setpoint);
       SmartDashboard.putNumber("arm speed",integratedArmEncoder.getVelocity());
       SmartDashboard.putNumber("arm output", armMotor.getAppliedOutput());
       SmartDashboard.putNumber("arm output 2", armMotor2.getAppliedOutput());
