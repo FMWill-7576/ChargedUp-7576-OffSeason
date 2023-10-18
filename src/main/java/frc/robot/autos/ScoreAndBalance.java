@@ -29,8 +29,8 @@ public class ScoreAndBalance extends SequentialCommandGroup {
 
     addCommands(
    
-    s_Arm.run(() -> s_Arm.armCone()).withTimeout(1.5),
-       s_Gripper.run(() -> s_Gripper.auto()).withTimeout(0.9),
+    s_Arm.run(() -> s_Arm.armScore()).withTimeout(1.5),
+       s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.9),
        new InstantCommand(() -> s_Gripper.stop()),
     
      new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),

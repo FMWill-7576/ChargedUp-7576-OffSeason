@@ -15,7 +15,7 @@ public class OnlyGrip extends SequentialCommandGroup {
     addCommands(
       new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
       new InstantCommand(() -> s_Swerve.zeroGyro()),
-      s_Gripper.run(() -> s_Gripper.auto()).withTimeout(1.1),
+      s_Gripper.run(() -> s_Gripper.outake()).withTimeout(1.1),
       new InstantCommand(() -> s_Gripper.stop()),
      new InstantCommand(() -> s_Swerve.drive(
             new Translation2d(0, 0),

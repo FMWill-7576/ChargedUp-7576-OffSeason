@@ -89,6 +89,10 @@ public class RobotContainer {
      new JoystickButton(operator,2);
      private final JoystickButton armHome = 
       new JoystickButton(operator,1);
+      private final JoystickButton armPickup = 
+      new JoystickButton(operator,10);
+      private final JoystickButton armScoreReverse = 
+      new JoystickButton(operator,9);
 
     
 
@@ -99,10 +103,10 @@ public class RobotContainer {
       private final JoystickButton resetAbsolute =
       new JoystickButton(driver,1);
 
-      private final JoystickButton intake =
+      private final JoystickButton manualIntake =
       new JoystickButton(operator,5);
 
-      private final JoystickButton outake =
+      private final JoystickButton manualOutake =
       new JoystickButton(operator,4);
 
       private final JoystickButton hold = 
@@ -159,13 +163,13 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-    eventMap.put("place high", new InstantCommand(() -> s_Arm.armCone()));
+    eventMap.put("place high", new InstantCommand(() -> s_Arm.armScore()));
 
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> Math.pow(-driver.getRawAxis(translationAxis) * 1, 1),
-            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 1 ,1),
+            () -> Math.pow(-driver.getRawAxis(translationAxis) * 0.5, 1),
+            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 0.5 ,1),
             () -> Math.pow(driver.getRawAxis(rotationAxis) * 0.45 ,1),
             () -> robotCentric.getAsBoolean())); 
 
@@ -218,14 +222,20 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
    // armDown.whileTrue(s_Slider.run(() -> s_Slider.armDown()));
     armUp.whileTrue(s_Arm.run(() -> s_Arm.armUp()));
     armDown.whileTrue(s_Arm.run(() -> s_Arm.armDown()));
-    armHome.toggleOnTrue(s_Arm.run(() -> s_Arm.armHome()));
-    armReset.whileTrue(s_Arm.runOnce(() -> s_Arm.armReset()));
-    armCone.toggleOnTrue(s_Arm.run(() -> s_Arm.armCone()));
-    armGrip.toggleOnTrue(s_Arm.run(() -> s_Arm.armGrip()).raceWith(s_Gripper.run(() -> s_Gripper.hold())));
-    intake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
-    outake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
+    armHome.onTrue(s_Arm.run(() -> s_Arm.armHome()));
+    armReset.whileTrue(new InstantCommand(() -> s_Arm.armReset()));
+    armCone.onTrue(s_Arm.run(() -> s_Arm.armScore()));
+    armCone.onTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
+    armScoreReverse.onTrue(s_Arm.run(() -> s_Arm.armScoreReverse()));
+    armScoreReverse.onTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
+    armPickup.onTrue(s_Arm.run(() -> s_Arm.armPickUp()));
+    armPickup.onTrue(s_Gripper.run(() -> s_Gripper.hold()));
+    armGrip.onTrue(s_Arm.run(() -> s_Arm.armGrip()));
+    armGrip.onTrue(s_Gripper.run(() -> s_Gripper.hold()));
+    manualIntake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
+    manualOutake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
     drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));
-    hold.toggleOnTrue(s_Gripper.run(() -> s_Gripper.hold()));
+    hold.toggleOnTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
   //  resetSlider.onTrue(new InstantCommand(() -> s_Slider.resetSlider()));
 
   }

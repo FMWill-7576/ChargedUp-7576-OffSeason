@@ -118,15 +118,28 @@ public class Arm extends SubsystemBase {
 
      public void armUp(){
      // armSet(Rotation2d.fromDegrees(150.0));
-      armDrive(0.235);
+      armDrive(0.205);
      }
 
-     public void armCone(){
-       armSet(Rotation2d.fromDegrees(57.3));
+     public void armScore(){
+       armSet(Rotation2d.fromDegrees
+       (57.3));
       }
 
      public void armGrip(){
-      armSet(Rotation2d.fromDegrees(298.0));}
+      armSet(Rotation2d.fromDegrees
+      (301.0));
+    }
+    public void armPickUp(){
+      armSet(Rotation2d.fromDegrees
+      (45.0));
+    }
+
+    public void armScoreReverse(){
+      armSet(Rotation2d.fromDegrees
+      (183.0));
+
+    }
 
      public void armDrive(double armPercentage){
       armMotor.set(armPercentage);
@@ -139,7 +152,7 @@ public class Arm extends SubsystemBase {
 
      public void armDown(){
       //armSet(Rotation2d.fromDegrees(200.0));
-      armDrive(-0.235);
+      armDrive(-0.205);
      }
 
 
@@ -165,6 +178,8 @@ public class Arm extends SubsystemBase {
       SmartDashboard.putNumber("arm encoder2" , integratedArmEncoder2.getPosition());
       SmartDashboard.putNumber("setpoint",57.0);
       SmartDashboard.putNumber("arm speed",integratedArmEncoder.getVelocity());
+      SmartDashboard.putNumber("arm output", armMotor.getAppliedOutput());
+      SmartDashboard.putNumber("arm output 2", armMotor2.getAppliedOutput());
       
 
 

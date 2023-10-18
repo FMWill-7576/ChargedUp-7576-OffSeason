@@ -20,8 +20,8 @@ public class Gripper extends SubsystemBase {
    // Solenoid exampleSolenoidPCM;
   /** Creates a new Gripper. */
   public Gripper() {
-    leftGrip = new VictorSPX(21);
-    rightGrip = new VictorSPX(20);
+    leftGrip = new VictorSPX(20);
+    rightGrip = new VictorSPX(21);
     //pcmCompressor = new Compressor(0, PneumaticsModuleType.CTREPCM);
     //pcmCompressor.enableDigital();
     //pcmCompressor.disable();
@@ -40,7 +40,7 @@ public class Gripper extends SubsystemBase {
   public void   intake(){
     leftGrip.set(
       VictorSPXControlMode.PercentOutput,
-     -0.35
+     -0.40
     );
    rightGrip.set(
     VictorSPXControlMode.PercentOutput, 
@@ -59,26 +59,30 @@ public class Gripper extends SubsystemBase {
   }
 
   public void   drop(){ 
-    leftGrip.set(VictorSPXControlMode.PercentOutput, 0.30);
-    rightGrip.set(VictorSPXControlMode.PercentOutput, 0.30);
+    leftGrip.set(
+      VictorSPXControlMode.PercentOutput,
+     0.35);
+    rightGrip.set(
+      VictorSPXControlMode.PercentOutput,
+       0.30);
   }
 
 
-  public void   auto(){ 
+  public void  strongHold(){ 
     leftGrip.set(
       VictorSPXControlMode.PercentOutput,
-     0.4);
+     -0.35);
     rightGrip.set(
       VictorSPXControlMode.PercentOutput,
-     0.35);
+     -0.3);
   }
   public void   hold(){
     leftGrip.set(
       VictorSPXControlMode.PercentOutput,
-    -0.2
+    -0.25
     );
    rightGrip.set(
-    VictorSPXControlMode.PercentOutput, -0.26
+    VictorSPXControlMode.PercentOutput, -0.20
     );
   }
 
@@ -88,6 +92,7 @@ leftGrip.enableVoltageCompensation(true);
 leftGrip.configVoltageCompSaturation(12.0);
 leftGrip.setInverted(false);
 leftGrip.setNeutralMode(NeutralMode.Brake);
+
 
 rightGrip.configFactoryDefault();
 rightGrip.enableVoltageCompensation(true);
