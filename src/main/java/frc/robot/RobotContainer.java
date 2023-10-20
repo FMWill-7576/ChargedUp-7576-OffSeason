@@ -77,6 +77,8 @@ public class RobotContainer {
       new JoystickButton(driver, 3);
       private final JoystickButton resetAbsolute2 = 
       new JoystickButton(driver, 8);
+      private final JoystickButton resetAbsolute =
+      new JoystickButton(driver,1);
  
 
       private final JoystickButton armReset = 
@@ -85,14 +87,14 @@ public class RobotContainer {
       new Trigger(() -> operator.getRawAxis(armDownAxis) > 0.3);
       private final Trigger armUp = 
      new Trigger (() -> operator.getRawAxis(armUpAxis) > 0.3); 
-     private final JoystickButton armCone = 
+     private final JoystickButton armScore = 
      new JoystickButton(operator,2);
      private final JoystickButton armHome = 
       new JoystickButton(operator,1);
       private final JoystickButton armPickup = 
       new JoystickButton(operator,10);
       private final JoystickButton armScoreReverse = 
-      new JoystickButton(operator,9);
+      new JoystickButton(operator,3);
 
     
 
@@ -100,19 +102,18 @@ public class RobotContainer {
      // new JoystickButton(driver, 6);
 
 
-      private final JoystickButton resetAbsolute =
-      new JoystickButton(driver,1);
 
-      private final JoystickButton manualIntake =
-      new JoystickButton(operator,5);
 
-      private final JoystickButton manualOutake =
+      //private final JoystickButton manualIntake =
+      //new JoystickButton(operator,5);
+
+      private final JoystickButton shoot =
       new JoystickButton(operator,4);
 
       private final JoystickButton hold = 
-      new JoystickButton(operator,3);
+      new JoystickButton(operator,5);
 
-      private final JoystickButton drop =
+      private final JoystickButton manualOutake =
       new JoystickButton(operator,6);
 
       private final JoystickButton armGrip = 
@@ -224,17 +225,17 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     armDown.whileTrue(s_Arm.run(() -> s_Arm.armDown()));
     armHome.onTrue(s_Arm.run(() -> s_Arm.armHome()));
     armReset.whileTrue(new InstantCommand(() -> s_Arm.armReset()));
-    armCone.onTrue(s_Arm.run(() -> s_Arm.armScore()));
-    armCone.onTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
+    armScore.onTrue(s_Arm.run(() -> s_Arm.armScore()));
+    armScore.onTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
     armScoreReverse.onTrue(s_Arm.run(() -> s_Arm.armScoreReverse()));
     armScoreReverse.onTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
     armPickup.onTrue(s_Arm.run(() -> s_Arm.armPickUp()));
     armPickup.onTrue(s_Gripper.run(() -> s_Gripper.hold()));
     armGrip.onTrue(s_Arm.run(() -> s_Arm.armGrip()));
     armGrip.onTrue(s_Gripper.run(() -> s_Gripper.hold()));
-    manualIntake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
-    manualOutake.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
-    drop.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));
+    //manualIntake.whileTrue(s_Gripper.run(() -> s_Gripper.intake()));
+    manualOutake.whileTrue(s_Gripper.run(() -> s_Gripper.drop()));
+    shoot.whileTrue(s_Gripper.run(() -> s_Gripper.outake()));
     hold.toggleOnTrue(s_Gripper.run(() -> s_Gripper.strongHold()));
   //  resetSlider.onTrue(new InstantCommand(() -> s_Slider.resetSlider()));
 
