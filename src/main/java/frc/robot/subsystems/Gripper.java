@@ -79,10 +79,10 @@ public class Gripper extends SubsystemBase {
   public void   hold(){
     leftGrip.set(
       VictorSPXControlMode.PercentOutput,
-    -0.25
+    -0.27
     );
    rightGrip.set(
-    VictorSPXControlMode.PercentOutput, -0.20
+    VictorSPXControlMode.PercentOutput, -0.22
     );
   }
 

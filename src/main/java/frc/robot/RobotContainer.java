@@ -169,8 +169,8 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> Math.pow(-driver.getRawAxis(translationAxis) * 0.5, 1),
-            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 0.5 ,1),
+            () -> Math.pow(-driver.getRawAxis(translationAxis) * 0.85, 1),
+            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 0.85 ,1),
             () -> Math.pow(driver.getRawAxis(rotationAxis) * 0.45 ,1),
             () -> robotCentric.getAsBoolean())); 
 

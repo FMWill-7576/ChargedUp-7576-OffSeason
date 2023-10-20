@@ -20,7 +20,7 @@ import frc.robot.Constants;
 
 public class Arm extends SubsystemBase {
   private static double kS = 0.3;
-  private static double kG = 0.75;
+  private static double kG = 0.45;
   private static double kV = 0.13;
   public double calculatedkG;
   private ArmFeedforward armFeedforward;
@@ -71,26 +71,30 @@ public class Arm extends SubsystemBase {
         armMotor2.restoreFactoryDefaults();
         CANSparkMaxUtil.setCANSparkMaxBusUsage(armMotor, Usage.kPositionOnly);
         CANSparkMaxUtil.setCANSparkMaxBusUsage(armMotor2, Usage.kPositionOnly);
-        armMotor.setSmartCurrentLimit(40);
-        armMotor2.setSmartCurrentLimit(40);
+        armMotor.setSmartCurrentLimit(38);
+        armMotor2.setSmartCurrentLimit(38);
         armMotor.setInverted(true);
         armMotor.setIdleMode(Constants.ArmConstants.armNeutralMode);
         armMotor2.setInverted(true);
         armMotor2.setIdleMode(Constants.ArmConstants.armNeutralMode); 
-        integratedArmEncoder.setPositionConversionFactor(9.29); 
+        integratedArmEncoder.setPositionConversionFactor(7.742); 
         integratedArmEncoder.setPosition(-68.0);
-        integratedArmEncoder2.setPositionConversionFactor(9.29); 
-        integratedArmEncoder.setVelocityConversionFactor(9.29); 
+        integratedArmEncoder2.setPositionConversionFactor(7.742); 
+        integratedArmEncoder.setVelocityConversionFactor(7.742); 
         integratedArmEncoder2.setPosition(-68.0); 
-        integratedArmEncoder2.setVelocityConversionFactor(9.29); 
+        integratedArmEncoder2.setVelocityConversionFactor(7.742); 
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
         armController.setD(Constants.ArmConstants.armKD);
-        armController.setOutputRange(-0.33, 0.33);
+        armController.setIMaxAccum(Constants.ArmConstants.armKIMax,0);
+        armController.setIZone(Constants.ArmConstants.armKIZone);
+        armController.setOutputRange(-0.29, 0.29);
         armController2.setP(Constants.ArmConstants.armKP);
         armController2.setI(Constants.ArmConstants.armKI);
         armController2.setD(Constants.ArmConstants.armKD);
-        armController2.setOutputRange(-0.33, 0.33);
+        armController2.setIMaxAccum(Constants.ArmConstants.armKIMax,0);
+        armController2.setIZone(Constants.ArmConstants.armKIZone);
+        armController2.setOutputRange(-0.29, 0.29);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
         //integratedArmEncoder.setReverseDirection(false); // bu
@@ -124,21 +128,21 @@ public class Arm extends SubsystemBase {
 
      public void armScore(){
        armSet(Rotation2d.fromDegrees
-       (57.3));
+       (36.2));
       }
 
      public void armGrip(){
       armSet(Rotation2d.fromDegrees
-      (301.0));
+      (247.5));
     }
     public void armPickUp(){
       armSet(Rotation2d.fromDegrees
-      (45.0));
+      (26.17));
     }
 
     public void armScoreReverse(){
       armSet(Rotation2d.fromDegrees
-      (183.0));
+      (125.0));
 
     }
 
@@ -148,7 +152,7 @@ public class Arm extends SubsystemBase {
     }    
 
      public void armHome(){
-      armSet(Rotation2d.fromDegrees(-55.0));
+      armSet(Rotation2d.fromDegrees(-53.8));
      }
 
      public void armDown(){
