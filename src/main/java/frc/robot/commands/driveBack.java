@@ -29,7 +29,7 @@ public class DriveBack extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(-0.55, 
+      new Translation2d(-0.09, 
       0).times(Constants.Swerve.maxSpeed),
         0,
         true,
@@ -46,6 +46,6 @@ public class DriveBack extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(s_Swerve.getRoll() - initialRoll) > 3.0);
+    return (Math.abs(s_Swerve.getRoll() - initialRoll) > 5.0);
   }
 }

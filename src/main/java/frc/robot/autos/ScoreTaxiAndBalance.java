@@ -75,19 +75,26 @@ public class ScoreTaxiAndBalance extends SequentialCommandGroup {
 
     addCommands(
       
-       s_Arm.run(() -> s_Arm.armScore()).withTimeout(1.5),
-       s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.9),
+      s_Arm.run(() -> s_Arm.armScore()).raceWith(
+      s_Gripper.run(() -> s_Gripper.strongHold()))
+     .withTimeout(1.0),
+
+       s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.8),
        new InstantCommand(() -> s_Gripper.stop()),
+       s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.9),
 
     //    s_Gripper.run(() -> s_Gripper.drop()).withTimeout(0.9),
     //    new InstantCommand(() -> s_Gripper.stop()),
         
-         new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+        // new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
         
         // new InstantCommand(() -> s_Swerve.invertGyro()),
-       new InstantCommand(() -> s_Swerve.zeroGyro()),
+      // new InstantCommand(() -> s_Swerve.zeroGyro()),
+
+
+
        new DriveForward(s_Swerve),
-       new WaitCommand(1.0), 
+       new WaitCommand(3.0), 
      // new InstantCommand(() -> s_Swerve.resetOdometry( new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))))),
   
       //swerveControllerCommand

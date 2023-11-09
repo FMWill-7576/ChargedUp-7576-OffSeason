@@ -34,7 +34,7 @@ public class BalanceCommand extends CommandBase {
       
       s_Swerve.drive(
       
-    new Translation2d(-0.062, 
+    new Translation2d(-0.102, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,
@@ -46,7 +46,7 @@ public class BalanceCommand extends CommandBase {
 
   s_Swerve.drive(
       
-    new Translation2d(0.065, 
+    new Translation2d(0.145, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,
