@@ -25,6 +25,8 @@ import frc.robot.Constants;
 import frc.robot.commands.BalanceCommand;
 import frc.robot.commands.DriveBack;
 import frc.robot.commands.DriveForward;
+import frc.robot.commands.RotateCommand;
+import frc.robot.commands.ScoreHighCommand;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Gripper;
 import frc.robot.subsystems.Swerve;
@@ -34,72 +36,16 @@ import frc.robot.subsystems.Swerve;
 public class ScoreTaxiAndBalance extends SequentialCommandGroup {
   
   public ScoreTaxiAndBalance(Swerve s_Swerve, Gripper s_Gripper, Arm s_Arm) {
-    TrajectoryConfig config =
-    new TrajectoryConfig(
-            Constants.AutoConstants.kMaxSpeedMetersPerSecond,
-            Constants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
-        .setKinematics(Constants.Swerve.swerveKinematics);
-
-        Trajectory exampleTrajectory =
-        TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))),
-            // Pass through the  waypoints
-            List.of(    
-                new Translation2d(0.01, 0.00), 
-                new Translation2d(0.02, 0.01)
-                ),
-            // end
-            new Pose2d(0.05, 0.01, new Rotation2d(Math.toRadians(180.0))),
-            config);    
-
-            var thetaController =
-            new ProfiledPIDController(
-                Constants.AutoConstants.kPThetaController,
-                0.0,
-                0.09,
-                Constants.AutoConstants.kThetaControllerConstraints);
-        thetaController.enableContinuousInput(-Math.PI, Math.PI);
-
-        SwerveControllerCommand swerveControllerCommand =
-        new SwerveControllerCommand(
-            exampleTrajectory,
-            s_Swerve::getPose,
-            Constants.Swerve.swerveKinematics,
-            new PIDController(Constants.AutoConstants.kPXController, 0.0, 0),
-            new PIDController(Constants.AutoConstants.kPYController, 0.0, 0),
-            thetaController,
-            s_Swerve::setModuleStates,
-            s_Swerve);
-    
+  
 
     addCommands(
       
-      s_Arm.run(() -> s_Arm.armScore()).raceWith(
-      s_Gripper.run(() -> s_Gripper.strongHold()))
-     .withTimeout(1.0),
-
-       s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.8),
-       new InstantCommand(() -> s_Gripper.stop()),
-       s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.9),
-
-    //    s_Gripper.run(() -> s_Gripper.drop()).withTimeout(0.9),
-    //    new InstantCommand(() -> s_Gripper.stop()),
-        
-        // new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
-        
-        // new InstantCommand(() -> s_Swerve.invertGyro()),
-      // new InstantCommand(() -> s_Swerve.zeroGyro()),
-
-
-
-       new DriveForward(s_Swerve),
-       new WaitCommand(3.0), 
-     // new InstantCommand(() -> s_Swerve.resetOdometry( new Pose2d(0.0, 0.0, new Rotation2d(Math.toRadians(0.0))))),
-  
-      //swerveControllerCommand
-  
-     new DriveBack(s_Swerve),
+      new ScoreHighCommand(s_Arm, s_Gripper),
+      s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.85),
+      new DriveForward(s_Swerve),
+      new WaitCommand(2.3), 
+      new RotateCommand(s_Swerve).withTimeout(1.0),
+      new DriveBack(s_Swerve),
       new WaitCommand(1.0),
       
        new BalanceCommand(s_Swerve) 
