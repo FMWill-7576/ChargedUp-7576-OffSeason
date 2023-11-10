@@ -37,7 +37,7 @@ public class Swerve extends SubsystemBase {
     try {
       Thread.sleep(1000); // waiting for 1 second for the navx to complete the calibration before resetting the yaw
       gyro.reset();
-      invertGyro();
+      setGyro(0.0);
   } catch (InterruptedException ex) {
     Thread.currentThread().interrupt();
   } 
@@ -131,8 +131,8 @@ public class Swerve extends SubsystemBase {
 } 
  }
 
- public void invertGyro(){
-  gyro.setAngleAdjustment(0.0);
+ public void setGyro(double offset){
+  gyro.setAngleAdjustment(offset);
  }
 
   public void zeroGyro() {
@@ -220,13 +220,14 @@ public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFir
    
     swerveOdometry.update(getYaw(), getPositions());
     field.setRobotPose(getPose());
-    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(-gyro.getAngle(), 360));
+    SmartDashboard.putNumber("Robot Heading",Math.IEEEremainder(getYaw().getDegrees(), 360));
+    SmartDashboard.putNumber("Raw Heading",getYaw().getDegrees());
     //SmartDashboard.putString("Robot Location", getPose().getRotation().toString());
     SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
     SmartDashboard.putNumber("Speed Rate", speedRateSwerve);
     SmartDashboard.putNumber("pitch", (gyro.getPitch()));
     SmartDashboard.putNumber("roll", gyro.getRoll());
-    SmartDashboard.putNumber("adjustment", gyro.getAngleAdjustment());
+    SmartDashboard.putNumber("gyro offset", gyro.getAngleAdjustment());
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
