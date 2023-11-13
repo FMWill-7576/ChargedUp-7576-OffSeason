@@ -19,7 +19,7 @@ public class RotateCommand extends CommandBase {
   /** Creates a new RotateCommand. */
   public RotateCommand(Swerve s_Swerve) {
     this.s_Swerve = s_Swerve;
-    headingController = new PIDController(0.012, 0, 0);
+    headingController = new PIDController(0.014, 0, 0);
     addRequirements(s_Swerve);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -41,8 +41,8 @@ public class RotateCommand extends CommandBase {
           headingController.calculate(
             Math.abs(s_Swerve.getYaw().getDegrees()),
              180),
-             -0.45,
-             0.45)*Constants.Swerve.maxAngularVelocity,
+             -0.35,
+             0.35)*Constants.Swerve.maxAngularVelocity,
 
         true,
         true);
@@ -63,6 +63,6 @@ public class RotateCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(s_Swerve.getYaw().getDegrees())>175.0) ;
+    return (Math.abs(s_Swerve.getYaw().getDegrees())>161.0) ;
   }
 }

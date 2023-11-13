@@ -59,7 +59,7 @@ public class Arm extends SubsystemBase {
       kDt = 0.02; */
       feedforward = new ArmFeedforward(kS, kG, kV);
     
-  
+    
      integratedArmEncoder = armMotor.getEncoder();
      integratedArmEncoder2 = armMotor2.getEncoder();
      throughbEncoder = armMotor.getAlternateEncoder(Type.kQuadrature,8192);
@@ -82,13 +82,13 @@ public class Arm extends SubsystemBase {
         armMotor2.setInverted(true);
         armMotor2.setIdleMode(Constants.ArmConstants.armNeutralMode); 
         integratedArmEncoder.setPositionConversionFactor(7.742); 
-        integratedArmEncoder.setPosition(-68.0);
+        integratedArmEncoder.setPosition(-64.5);
         integratedArmEncoder2.setPositionConversionFactor(7.742); 
         integratedArmEncoder.setVelocityConversionFactor(7.742); 
-        integratedArmEncoder2.setPosition(-68.0); 
+        integratedArmEncoder2.setPosition(-64.5); 
         integratedArmEncoder2.setVelocityConversionFactor(7.742);
         throughbEncoder.setPositionConversionFactor(193.5);
-        throughbEncoder.setPosition(-68.0);
+        throughbEncoder.setPosition(-64.5);
         throughbEncoder.setInverted(true);
         armController.setP(Constants.ArmConstants.armKP);
         armController.setI(Constants.ArmConstants.armKI);
@@ -101,12 +101,12 @@ public class Arm extends SubsystemBase {
         armController2.setD(Constants.ArmConstants.armKD);
         armController2.setIMaxAccum(Constants.ArmConstants.armKIMax,0);
         armController2.setIZone(Constants.ArmConstants.armKIZone);
-        armController2.setOutputRange(-0.45, 0.45);
+        armController2.setOutputRange(-0.48, 0.48);
         armController2.setFeedbackDevice(integratedArmEncoder2);
         armMotor.enableVoltageCompensation(Constants.ArmConstants.voltageComp);
         armMotor2.enableVoltageCompensation(12.0);
         armMotor2.follow(armMotor);
-        armController.setOutputRange(-0.45, 0.45);
+        armController.setOutputRange(-0.48, 0.48);
         //integratedArmEncoder.setReverseDirection(false); // bu
         Timer.delay(0.1);
         armMotor.burnFlash();
@@ -122,14 +122,11 @@ public class Arm extends SubsystemBase {
          feedforward.calculate(angle.getRadians(),0),
          ArbFFUnits.kVoltage);
          
-       /*  armController2.setReference(
-          angle.getDegrees(),
-          ControlType.kPosition,
-          0,
-          feedforward.calculate(angle.getRadians(),0),
-          ArbFFUnits.kVoltage);
-          */
        setpoint=angle.getDegrees();
+      }
+
+      public void armHold(){
+        armSet(Rotation2d.fromDegrees(throughbEncoder.getPosition()));
       }
      
 
@@ -145,11 +142,11 @@ public class Arm extends SubsystemBase {
 
      public void armGrip(){
       armSet(Rotation2d.fromDegrees
-      (241.5));
+      (239.5));
     }
     public void armPickUp(){
       armSet(Rotation2d.fromDegrees
-      (21.17));
+      (14.0));
     }
 
     public void armScoreReverse(){

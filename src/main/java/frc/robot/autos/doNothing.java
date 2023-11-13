@@ -13,7 +13,7 @@ public class doNothing extends SequentialCommandGroup {
 
     addCommands(
       new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
-      new InstantCommand(() -> s_Swerve.zeroGyro()),
+
      new InstantCommand(() -> s_Swerve.drive(
             new Translation2d(0, 0),
             0,

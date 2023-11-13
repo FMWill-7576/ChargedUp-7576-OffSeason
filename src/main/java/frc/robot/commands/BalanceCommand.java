@@ -30,11 +30,11 @@ public class BalanceCommand extends CommandBase {
   @Override
   public void execute() {
 
-    if (s_Swerve.getTilt() > initRoll + tolerance){
+    if (s_Swerve.getRoll() > initRoll + tolerance){
       
       s_Swerve.drive(
       
-    new Translation2d(-0.102, 
+    new Translation2d(-0.062, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,
@@ -42,11 +42,11 @@ public class BalanceCommand extends CommandBase {
 
     }
     
-    else if(s_Swerve.getTilt() < -(initRoll + tolerance)){
+    else if(s_Swerve.getRoll() < -(initRoll + tolerance)){
 
   s_Swerve.drive(
       
-    new Translation2d(0.145, 
+    new Translation2d(0.082, 
     0).times(Constants.Swerve.maxSpeed),
       0,
       true,

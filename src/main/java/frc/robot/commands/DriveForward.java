@@ -29,7 +29,7 @@ public class DriveForward extends CommandBase {
   public void execute() {
     s_Swerve.drive(
       
-      new Translation2d(0.372, 
+      new Translation2d(0.382, 
       0).times(Constants.Swerve.maxSpeed),
         0,
         true,

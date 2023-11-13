@@ -15,6 +15,8 @@ public class OnlyGrip extends SequentialCommandGroup {
     // An example trajectory to follow.  All units in meters.
 
     addCommands(
+      new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
+
       new ScoreHighCommand(s_Arm, s_Gripper),
       s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.85),
       new InstantCommand(() -> s_Swerve.drive(

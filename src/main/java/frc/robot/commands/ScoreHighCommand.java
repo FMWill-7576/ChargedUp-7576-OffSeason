@@ -13,7 +13,7 @@ public class ScoreHighCommand extends SequentialCommandGroup {
     addCommands(
       s_Arm.run(() -> s_Arm.armScore()).raceWith(
       s_Gripper.run(() -> s_Gripper.strongHold()))
-     .withTimeout(0.85),
+     .withTimeout(0.88),
 
        s_Gripper.run(() -> s_Gripper.outake()).withTimeout(0.8),
        new InstantCommand(() -> s_Gripper.stop()) 

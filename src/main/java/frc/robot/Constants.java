@@ -23,11 +23,11 @@ public final class Constants {
 
     public static final double armConversionPositionFactor = 360.0/71.0/7.0/2.4923 ;
 
-    public static final double armKP = 0.00925 ;
+    public static final double armKP = 0.00715 ;
     public static final double armKI = 0.00000 ;
-    public static final double armKIMax = 0.00880;
+    public static final double armKIMax = 0.00680;
     public static final double armKIZone = 2.5;
-    public static final double armKD = 0.00270;//900
+    public static final double armKD = 0.00500;//900
     public static final double armKFF = 0.0 ;
 
     public static final  IdleMode armNeutralMode = IdleMode.kBrake ;
@@ -98,7 +98,7 @@ public final class Constants {
     public static final double angleConversionFactor = 360.0 / angleGearRatio;
 
     /* Swerve Profiling Values */
-    public static final double maxSpeed = 4.82; // meters per second
+    public static final double maxSpeed = 4.88; // meters per second
     // public static final double maxSpeed = 5880.0 / 60.0 * 0.1633 * 0.1016 *Math.PI; // 5.1 meters per second
     //public static final double maxAngularVelocity = 11.5; 
     public static final double maxAngularVelocity = maxSpeed/Math.hypot(trackWidth/2,wheelBase/2); //11.65
@@ -120,8 +120,8 @@ public final class Constants {
     /* Module Specific Constants */
     /* Front Left Module - Module 0 */
     public static final class Mod0 {
-      public static final int driveMotorID = 3;
-      public static final int angleMotorID = 4;
+      public static final int driveMotorID = 3;//3
+      public static final int angleMotorID = 4;//4
       public static final int canCoderID = 0;
       public static final Rotation2d angleOffset = Rotation2d.fromDegrees(258.83+2.0);
       public static final SwerveModuleConstants constants =

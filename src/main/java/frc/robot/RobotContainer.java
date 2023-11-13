@@ -68,44 +68,37 @@ public class RobotContainer {
       new JoystickButton(driver, 5);
 
       private final JoystickButton incSpeed =
-      new JoystickButton(driver, 5);
+      new JoystickButton(driver, 1);
 
       private final JoystickButton decSpeed =
-      new JoystickButton(driver, 3);
+      new JoystickButton(driver, 2);
 
       private final JoystickButton xLock = 
       new JoystickButton(driver, 3);
       private final JoystickButton resetAbsolute2 = 
       new JoystickButton(driver, 8);
-      private final JoystickButton resetAbsolute =
-      new JoystickButton(driver,1);
+      private final JoystickButton rotate =
+      new JoystickButton(driver,4);
  
 
       private final JoystickButton armReset = 
       new JoystickButton(operator,7);
+
       private final Trigger armDown = 
       new Trigger(() -> operator.getRawAxis(armDownAxis) > 0.3);
+
       private final Trigger armUp = 
      new Trigger (() -> operator.getRawAxis(armUpAxis) > 0.3); 
+
      private final JoystickButton armScore = 
      new JoystickButton(operator,2);
+
      private final JoystickButton armHome = 
       new JoystickButton(operator,1);
       private final JoystickButton armPickup = 
       new JoystickButton(operator,10);
       private final JoystickButton armScoreReverse = 
       new JoystickButton(operator,3);
-
-    
-
-     // private final JoystickButton pistonTest = 
-     // new JoystickButton(driver, 6);
-
-
-
-
-      //private final JoystickButton manualIntake =
-      //new JoystickButton(operator,5);
 
       private final JoystickButton shoot =
       new JoystickButton(operator,4);
@@ -153,7 +146,7 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     private final Command ScoreTaxiAndBalance = new ScoreTaxiAndBalance(s_Swerve, s_Gripper, s_Arm);
    // private final Command driveStraight = new driveStraight(s_Swerve, s_Gripper);
     private final Command doNothing = new doNothing(s_Swerve);
-    private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper);
+    private final Command GripOnly = new OnlyGrip(s_Swerve, s_Gripper, s_Arm);
     private final Command ScoreAndBalance = new ScoreAndBalance(s_Swerve, s_Gripper, s_Arm);
     private final Command ScoreAndTaxi = new ScoreAndTaxi(s_Swerve, s_Gripper, s_Arm);
     // Command fullAuto = autoBuilder.fullAuto(pathGroup);
@@ -169,8 +162,8 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
         s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> Math.pow(-driver.getRawAxis(translationAxis) * 1.0, 1),
-            () -> Math.pow(-driver.getRawAxis(strafeAxis) * 1.0 ,1),
+            () -> Math.pow(-driver.getRawAxis(translationAxis) * Swerve.speedRateSwerve, 1),
+            () -> Math.pow(-driver.getRawAxis(strafeAxis) * Swerve.speedRateSwerve ,1),
             () -> Math.pow(driver.getRawAxis(rotationAxis) * 0.45 ,1),
             () -> robotCentric.getAsBoolean())); 
 
@@ -180,10 +173,7 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
           s_Gripper.run(() -> s_Gripper.stop()));
 
           s_Arm.setDefaultCommand( 
-          new ArmCommand(
-            s_Arm,
-           () -> (-operator.getRawAxis(armAxis) * 0))  
-          //s_Arm.run(() -> s_Arm.armDrive(1.0))
+         (s_Arm.run(() -> s_Arm.armHold()))
 
 
          );   
@@ -214,7 +204,7 @@ SwerveAutoBuilder autoBuilder = new SwerveAutoBuilder(
     decSpeed.whileTrue(new InstantCommand(() -> s_Swerve.decSpeed()));
     xLock.whileTrue(s_Swerve.run(() -> s_Swerve.xLock()));
     //armTesting.whileTrue(s_Arm.run(() -> s_Arm.armTesting()));
-    resetAbsolute.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
+    //rotate.whileTrue(new RotateCommand(s_Swerve));
     resetAbsolute2.onTrue(new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()));
    // armUp.whileTrue(s_VictorArm.run(() -> s_VictorArm.armUp()));
    // armDown.whileTrue(s_VictorArm.run(() -> s_VictorArm.armDown()));

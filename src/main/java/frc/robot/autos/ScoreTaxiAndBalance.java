@@ -31,14 +31,14 @@ public class ScoreTaxiAndBalance extends SequentialCommandGroup {
   
 
     addCommands(
-      
+      new InstantCommand(() -> s_Swerve.resetModulesToAbsolute()),
       new ScoreHighCommand(s_Arm, s_Gripper),
-      s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.85),
+      s_Arm.run(() -> s_Arm.armHome()).withTimeout(0.65),
       new DriveForward(s_Swerve),
-      new WaitCommand(2.3), 
-      new RotateCommand(s_Swerve).withTimeout(1.0),
+      new WaitCommand(1.0), 
+      new RotateCommand(s_Swerve).withTimeout(1.2),
       new DriveBack(s_Swerve),
-      new WaitCommand(1.0),
+      new WaitCommand(1.4),
       
        new BalanceCommand(s_Swerve) 
        

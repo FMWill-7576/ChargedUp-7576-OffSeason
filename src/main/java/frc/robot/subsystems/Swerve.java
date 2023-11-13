@@ -231,8 +231,8 @@ public Command followTrajectoryCommand(PathPlannerTrajectory traj, boolean isFir
     for (SwerveModule mod : mSwerveMods) {
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-      SmartDashboard.putNumber(
-          "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+      SmartDashboard.putString(
+          "Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.toString());
       SmartDashboard.putNumber(
           "Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);
           //SmartDashboard.putString(
